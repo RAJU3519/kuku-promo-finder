@@ -56,3 +56,47 @@ python -m pytest -q
 ## Privacy and repository contents
 
 The GitHub deployment repository excludes `data/` (source screenplays), `outputs/` (generated JSON results), `.venv/`, and local secrets. The app processes uploaded screenplay text in memory/temp files for the current analysis; do not upload confidential or restricted material unless you are authorized to do so.
+
+## Input Screenplay Format
+
+Kuku Promo Finder currently expects structured screenplay `.txt` files.
+
+### 1. Episode metadata
+Each file must begin with:
+
+    EPISODE NUMBER: 4
+    EPISODE LOGLINE: Brief episode description.
+    CONTINUITY NOTES: Relevant story context.
+    --- SCRIPT START ---
+
+### 2. Scene information
+Each scene must contain:
+
+    SCENE 1
+    Scene heading: INT. ROOM - DAY
+    Scene start: 00:00
+    Scene end: 00:30
+
+### 3. Supported event types
+Supported headers: ACTION, DIALOGUE, CAMERA, SOUND FX, and SOUND EFFECT.
+
+Example:
+
+    **ACTION:**
+    Start: (00:00) | End: (00:05)
+    A character enters the room.
+
+### 4. Example files
+- examples/EP4.txt
+- examples/EP6.txt
+
+Upload these files to explore multi-segment promo generation.
+
+### 5. Current limitations
+- Metadata labels and scene fields must follow the documented structure.
+- Timestamps must use MM:SS format.
+- Events must use supported headers and timestamp fields.
+- Arbitrary screenplay formats are not guaranteed to work.
+- Missing or incorrectly formatted fields may cause parsing errors.
+
+The current prototype is optimized for structured screenplay input. Broader format compatibility is a potential future improvement.
